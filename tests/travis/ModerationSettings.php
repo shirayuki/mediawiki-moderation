@@ -59,7 +59,9 @@ if ( getenv( 'MODERATION_TEST_ENGINE' ) == 'realhttp' ) {
 }
 
 # Extensions below are needed for some tests of Extension:Moderation.
-if ( $wgDBtype != 'postgres' ) {
+if ( $wgDBtype != 'postgres'
+	&& version_compare( MW_VERSION, '1.38.0-alpha', '<' ) // AbuseFilter doesn't support MediaWiki 1.38 yet
+) {
 	// FIXME: what AbuseFilter does in its "UnitTestsAfterDatabaseSetup" and
 	// "UnitTestsBeforeDatabaseTeardown" hooks interferes with CliEngine.
 	// Until a workaround is found, we can't test with it.
